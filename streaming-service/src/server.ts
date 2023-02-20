@@ -1,5 +1,6 @@
 import net from 'net';
 import { WebSocket, WebSocketServer } from 'ws';
+import { addToLog } from './incident-log';
 
 const TCP_PORT = parseInt(process.env.TCP_PORT || '12000', 10);
 
@@ -16,6 +17,7 @@ tcpServer.on('connection', (socket) => {
         // HINT: see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch
         try {
           let currJSON = JSON.parse(msg.toString());
+          addToLog(currJSON);
           websocketServer.clients.forEach(function each(client) {
               if (client.readyState === WebSocket.OPEN) {
                 client.send(msg.toString());
