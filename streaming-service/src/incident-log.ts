@@ -22,7 +22,7 @@ export function addToLog(msg: msg) {
 // Checks if temperatures exceed more than 80 three times, then write to incidents.log
 function checkTimeLog (msg: msg) {
   for (msg of timeLog) {
-    if (msg.battery_temperature > 80) {
+    if (msg.battery_temperature > 80 || msg.battery_temperature < 20) {
       incidentCount++;
       // console.log(incidentCount);
     }
