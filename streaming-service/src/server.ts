@@ -12,7 +12,6 @@ tcpServer.on('connection', (socket) => {
     
     socket.on('data', (msg) => {
         console.log(msg.toString());
-
         // HINT: what happens if the JSON in the received message is formatted incorrectly?
         // HINT: see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch
         try {
@@ -24,9 +23,10 @@ tcpServer.on('connection', (socket) => {
                 }
               });
         } catch (err) {
-          console.error('Invalid JSON Parsed');
+            console.error("Unexpected token error");
+            return err;
         }
-      });
+    });
     socket.on('error', (err) => {
         console.log('TCP client error: ', err);
     });
